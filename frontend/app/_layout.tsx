@@ -2,17 +2,20 @@ import { Stack } from "expo-router"
 import React from "react"
 import { StatusBar } from "expo-status-bar"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { StoreContext, stores } from "@/assets/stores"
 
 export default function RootLayout() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#faf8ef' }}>
-      <StatusBar
-        style="dark"
-        backgroundColor="#faf8ef"
-      />
-      <Stack screenOptions={{
-        headerShown: false
-      }} />
-    </SafeAreaView>
+    <StoreContext.Provider value={stores}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#faf8ef' }}>
+        <StatusBar
+          style="dark"
+          backgroundColor="#faf8ef"
+        />
+        <Stack screenOptions={{
+          headerShown: false
+        }} />
+      </SafeAreaView>
+    </StoreContext.Provider>
   )
 }
