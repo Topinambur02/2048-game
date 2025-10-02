@@ -25,37 +25,43 @@ export const useGame = () => {
                 for (let i = 0; i < BOARD_SIZE; i++) {
                     const original = [...newBoard[i]]
                     newBoard[i] = processLine(newBoard[i])
-                    moved = JSON.stringify(original) !== JSON.stringify(newBoard[i])
+                    if (!moved) {
+                        moved = JSON.stringify(original) !== JSON.stringify(newBoard[i])
+                    }
                 }
             }
             else if (direction === 'right') {
                 for (let i = 0; i < BOARD_SIZE; i++) {
                     const original = [...newBoard[i]]
                     newBoard[i] = processLine([...newBoard[i]].reverse()).reverse()
-                    moved = JSON.stringify(original) !== JSON.stringify(newBoard[i])
+                    if (!moved) {
+                        moved = JSON.stringify(original) !== JSON.stringify(newBoard[i])
+                    }
                 }
             }
             else if (direction === 'up') {
                 for (let j = 0; j < BOARD_SIZE; j++) {
                     const column = newBoard.map(row => row[j])
+                    const original = [...column]
                     const processed = processLine(column)
-                    if (JSON.stringify(column) !== JSON.stringify(processed)) {
-                        moved = true
-                        for (let i = 0; i < BOARD_SIZE; i++) {
-                            newBoard[i][j] = processed[i]
-                        }
+                    if (!moved) {
+                        moved = JSON.stringify(original) !== JSON.stringify(processed)
+                    }
+                    for (let i = 0; i < BOARD_SIZE; i++) {
+                        newBoard[i][j] = processed[i]
                     }
                 }
             }
             else if (direction === 'down') {
                 for (let j = 0; j < BOARD_SIZE; j++) {
                     const column = newBoard.map(row => row[j])
+                    const original = [...column]
                     const processed = processLine([...column].reverse()).reverse()
-                    if (JSON.stringify(column) !== JSON.stringify(processed)) {
-                        moved = true
-                        for (let i = 0; i < BOARD_SIZE; i++) {
-                            newBoard[i][j] = processed[i]
-                        }
+                    if (!moved) {
+                        moved = JSON.stringify(original) !== JSON.stringify(processed)
+                    }
+                    for (let i = 0; i < BOARD_SIZE; i++) {
+                        newBoard[i][j] = processed[i]
                     }
                 }
             }

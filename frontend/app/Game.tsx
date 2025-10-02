@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import ScoreBlock from '@/assets/components/ScoreBlock'
 import NavigationButton from '@/assets/components/NavigationButton'
 import { styles } from '@/assets/styles/GameStyles'
@@ -8,15 +8,36 @@ import { IndexScreenNavigationProp } from '@/assets/props/IndexScreenNavigationP
 import Board from '@/assets/components/Board'
 import { useGameGesture } from '@/assets/hooks/useGameGesture'
 import { useGame } from '@/assets/hooks/useGame'
+import { isWinner } from '@/assets/utils/isWinner'
+import WinModal from '@/assets/components/WinModal'
+import { isGameOver } from '@/assets/utils/isGameOver'
+import LoseModal from '@/assets/components/LoseModal'
 
 const Game = () => {
     const navigation = useNavigation<IndexScreenNavigationProp>()
     const { board, initializeBoard, moveTiles } = useGame()
     const panResponder = useGameGesture(moveTiles)
+    const isWin = isWinner(board)
+    const [showWinModal, setShowWinModal] = useState(false)
+    const [showLoseModal, setShowLoseModal] = useState(false)
+
+    useEffect(() => {
+        if (isWin) {
+            setShowWinModal(true)
+        }
+    }, [isWin])
+
+    useEffect(() => {
+        if (!isWin && isGameOver(board)) {
+            setShowLoseModal(true)
+        }
+    }, [board, isWin])
 
     useFocusEffect(
         useCallback(() => {
             initializeBoard()
+            setShowWinModal(false)
+            setShowLoseModal(false)
         }, [initializeBoard])
     )
 
@@ -45,6 +66,18 @@ const Game = () => {
             <View {...panResponder.panHandlers}>
                 <Board board={board} />
             </View>
+
+            <WinModal
+                showWinModal={showWinModal}
+                setShowWinModal={setShowWinModal}
+                initializeBoard={initializeBoard}
+            />
+
+            <LoseModal
+                showLoseModal={showLoseModal}
+                setShowLoseModal={setShowLoseModal}
+                initializeBoard={initializeBoard}
+            />
         </View>
     )
 }
