@@ -12,41 +12,53 @@ import { isWinner } from '@/assets/utils/isWinner'
 import WinModal from '@/assets/components/WinModal'
 import { isGameOver } from '@/assets/utils/isGameOver'
 import LoseModal from '@/assets/components/LoseModal'
+import { useStores } from '@/assets/stores'
+import { calculateScore } from '@/assets/utils/calculateScore'
 
 const Game = () => {
     const navigation = useNavigation<IndexScreenNavigationProp>()
     const { board, initializeBoard, moveTiles } = useGame()
     const panResponder = useGameGesture(moveTiles)
-    const isWin = isWinner(board)
+    const { gameStore } = useStores()
     const [showWinModal, setShowWinModal] = useState(false)
     const [showLoseModal, setShowLoseModal] = useState(false)
+    const score = calculateScore(board)
+    const isWin = isWinner(board)
 
     useEffect(() => {
         if (isWin) {
             setShowWinModal(true)
         }
-    }, [isWin])
-
-    useEffect(() => {
-        if (!isWin && isGameOver(board)) {
+        else if (!isWin && isGameOver(board)) {
             setShowLoseModal(true)
         }
-    }, [board, isWin])
+    }, [isWin, board])
 
     useFocusEffect(
         useCallback(() => {
             initializeBoard()
+            gameStore.resetScore()
             setShowWinModal(false)
             setShowLoseModal(false)
         }, [initializeBoard])
     )
 
+     if (gameStore.isLoading) {
+        return (
+            <View style={styles.container}>
+                <Text>Loading game data...</Text>
+            </View>
+        )
+    }
+
+    gameStore.setScore(score)
+
     return (
         <View style={styles.container}>
             <View style={styles.upperBlock}>
                 <View style={styles.blockContainer}>
-                    <ScoreBlock text='SCORE' number={0} />
-                    <ScoreBlock text='BEST' number={0} />
+                    <ScoreBlock text='SCORE' number={gameStore.score} />
+                    <ScoreBlock text='BEST' number={gameStore.bestScore} />
                 </View>
 
                 <View style={styles.buttonsContainer}>
