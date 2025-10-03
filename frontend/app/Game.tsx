@@ -14,6 +14,8 @@ import { isGameOver } from '@/assets/utils/isGameOver'
 import LoseModal from '@/assets/components/LoseModal'
 import { useStores } from '@/assets/stores'
 import { calculateScore } from '@/assets/utils/calculateScore'
+import Settings from '@/assets/components/Settings'
+import SettingsModal from '@/assets/components/SettingsModal'
 
 const Game = () => {
     const navigation = useNavigation<IndexScreenNavigationProp>()
@@ -22,6 +24,7 @@ const Game = () => {
     const { gameStore } = useStores()
     const [showWinModal, setShowWinModal] = useState(false)
     const [showLoseModal, setShowLoseModal] = useState(false)
+    const [showSettingsModal, setShowSettingsModal] = useState(false)
     const score = calculateScore(board)
     const isWin = isWinner(board)
 
@@ -43,7 +46,7 @@ const Game = () => {
         }, [initializeBoard])
     )
 
-     if (gameStore.isLoading) {
+    if (gameStore.isLoading) {
         return (
             <View style={styles.container}>
                 <Text>Loading game data...</Text>
@@ -56,20 +59,26 @@ const Game = () => {
     return (
         <View style={styles.container}>
             <View style={styles.upperBlock}>
-                <View style={styles.blockContainer}>
-                    <ScoreBlock text='SCORE' number={gameStore.score} />
-                    <ScoreBlock text='BEST' number={gameStore.bestScore} />
+                <View style={styles.leftSide}>
+                    <View style={styles.blockContainer}>
+                        <ScoreBlock text='SCORE' number={gameStore.score} />
+                        <ScoreBlock text='BEST' number={gameStore.bestScore} />
+                    </View>
+
+                    <View style={styles.buttonsContainer}>
+                        <NavigationButton
+                            text='MENU'
+                            func={() => navigation.goBack()}
+                        />
+                        <NavigationButton
+                            text='LEADERBOARD'
+                            func={() => navigation.navigate('Leaderboard')}
+                        />
+                    </View>
                 </View>
 
-                <View style={styles.buttonsContainer}>
-                    <NavigationButton
-                        text='MENU'
-                        func={() => navigation.goBack()}
-                    />
-                    <NavigationButton
-                        text='LEADERBOARD'
-                        func={() => navigation.navigate('Leaderboard')}
-                    />
+                <View style={styles.rightSide}>
+                    <Settings onPress={() => setShowSettingsModal(true)} />
                 </View>
             </View>
 
@@ -78,6 +87,11 @@ const Game = () => {
             <View {...panResponder.panHandlers}>
                 <Board board={board} />
             </View>
+
+            <SettingsModal
+                showSettingsModal={showSettingsModal}
+                setShowSettingsModal={setShowSettingsModal}
+            />
 
             <WinModal
                 showWinModal={showWinModal}

@@ -7,9 +7,13 @@ export const styles = StyleSheet.create({
     },
     upperBlock: {
         paddingTop: 25,
+        paddingLeft: 25,
         paddingRight: 25,
-        alignItems: 'flex-end',
+        flexDirection: 'row',
+        justifyContent:'space-between'
     },
+    leftSide: {},
+    rightSide: {},
     blockContainer: {
         display: 'flex',
         flexDirection: 'row',
