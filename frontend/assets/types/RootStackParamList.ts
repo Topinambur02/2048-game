@@ -1,5 +1,7 @@
 export type RootStackParamList = {
-  Index: undefined
+  index: undefined
   Game: undefined
   Leaderboard: undefined
+  Login: undefined
+  Register: undefined
 }
