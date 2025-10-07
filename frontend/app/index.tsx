@@ -4,9 +4,11 @@ import React from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 import { styles } from "@/assets/styles/MainPageStyles"
 import NumberBlock from "@/assets/components/NumberBlock"
+import { useAuth } from "@/assets/hooks/useAuth"
 
 export default function Index() {
   const navigation = useNavigation<IndexScreenNavigationProp>()
+  const { user } = useAuth()
 
   return (
     <View style={styles.container}>
@@ -35,6 +37,17 @@ export default function Index() {
       >
         <Text style={styles.buttonText}>Таблица лидеров</Text>
       </TouchableOpacity>
+
+      {user === null
+        ?
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text style={styles.buttonText}>Вход</Text>
+        </TouchableOpacity>
+        :
+        <View></View>}
     </View>
   )
 }
