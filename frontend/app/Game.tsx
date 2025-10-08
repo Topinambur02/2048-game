@@ -97,12 +97,14 @@ const Game = () => {
                 showWinModal={showWinModal}
                 setShowWinModal={setShowWinModal}
                 initializeBoard={initializeBoard}
+                onClose={() => gameStore.sendCurrentScoreToServer()}
             />
 
             <LoseModal
                 showLoseModal={showLoseModal}
                 setShowLoseModal={setShowLoseModal}
                 initializeBoard={initializeBoard}
+                onClose={() => gameStore.sendCurrentScoreToServer()}
             />
         </View>
     )

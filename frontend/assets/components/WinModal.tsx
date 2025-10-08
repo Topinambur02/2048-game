@@ -4,10 +4,16 @@ import { styles } from '../styles/WinModalStyles'
 import { WinModalProps } from '../props/WinModalProps'
 import { WIN_NUMBER } from '../constants/constants'
 
-const WinModal = ({ showWinModal, setShowWinModal, initializeBoard }: WinModalProps) => {
+const WinModal = ({ showWinModal, setShowWinModal, initializeBoard, onClose }: WinModalProps) => {
     const handleNewGame = () => {
         setShowWinModal(false)
         initializeBoard()
+        onClose()
+    }
+
+    const handleClose = () => {
+        setShowWinModal(false)
+        onClose()
     }
 
     return (
@@ -15,7 +21,7 @@ const WinModal = ({ showWinModal, setShowWinModal, initializeBoard }: WinModalPr
             animationType="fade"
             transparent={true}
             visible={showWinModal}
-            onRequestClose={() => setShowWinModal(false)}
+            onRequestClose={handleClose}
         >
             <View style={styles.modalOverlay}>
                 <View style={styles.modalContent}>

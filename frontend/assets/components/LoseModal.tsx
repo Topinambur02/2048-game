@@ -6,17 +6,24 @@ import { useNavigation } from '@react-navigation/native'
 import { LoseModalProps } from '../props/LoseModalProps'
 import { styles } from '../styles/LoseModalStyles'
 
-const LoseModal = ({ showLoseModal, setShowLoseModal, initializeBoard }: LoseModalProps) => {
+const LoseModal = ({ showLoseModal, setShowLoseModal, initializeBoard, onClose }: LoseModalProps) => {
     const navigation = useNavigation<IndexScreenNavigationProp>()
 
     const onRestart = () => {
         setShowLoseModal(false)
         initializeBoard()
+        onClose()
     }
 
     const onMenu = () => {
         setShowLoseModal(false)
+        onClose()
         navigation.goBack()
+    }
+
+    const handleClose = () => {
+        setShowLoseModal(false)
+        onClose()
     }
 
     return (
@@ -24,7 +31,7 @@ const LoseModal = ({ showLoseModal, setShowLoseModal, initializeBoard }: LoseMod
             animationType='fade'
             transparent
             visible={showLoseModal}
-            onRequestClose={() => setShowLoseModal(false)}
+            onRequestClose={handleClose}
         >
             <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>

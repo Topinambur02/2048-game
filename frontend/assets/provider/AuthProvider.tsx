@@ -7,9 +7,11 @@ import { AuthContext } from '../contexts/AuthContext';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<UserType | null>(null);
+    const [users, setUsers] = useState<UserType[] | null>(null)
 
     useEffect(() => {
         checkAuthStatus();
+        getUsers()
     }, []);
 
     const checkAuthStatus = async () => {
@@ -55,14 +57,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const getUsers = async () => {
         try {
             const response = await $host.get('/users')
-            return response.data
+            setUsers(response.data)
         } catch (error) {
             throw error
         }
     }
 
     return (
-        <AuthContext.Provider value={{ user, login, register, getUsers }}>
+        <AuthContext.Provider value={{ user, users, login, register }}>
             {children}
         </AuthContext.Provider>
     );
