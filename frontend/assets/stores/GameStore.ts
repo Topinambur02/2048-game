@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import $host from '../http'
 
 class GameStore {
     score: number = 0
@@ -52,6 +53,16 @@ class GameStore {
             })
         } finally {
             runInAction(() => this.isLoading = false)
+        }
+    }
+
+    async sendCurrentScoreToServer() {
+        try {
+            const headers = { headers: { 'Content-Type': 'application/json' } }
+            const data = { bestScore: this.bestScore }
+            await $host.patch("/users/me", data, headers)
+        } catch (error) {
+            console.error('Error sending game result to server:', error)
         }
     }
 
