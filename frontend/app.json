@@ -1,0 +1,43 @@
+{
+    "expo": {
+        "name": "2048",
+        "slug": "game-2048",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/logo.svg",
+        "scheme": "game2048",
+        "userInterfaceStyle": "light",
+        "newArchEnabled": true,
+        "ios": {
+            "supportsTablet": true,
+            "screenOrientation": "portrait"
+        },
+        "android": {
+            "screenOrientation": "portrait",
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#FFFFFF"
+            }
+        },
+        "web": {
+            "output": "static",
+            "favicon": "./assets/favicon.png"
+        },
+        "plugins": [
+            "expo-router",
+            [
+                "expo-splash-screen",
+                {
+                    "image": "./assets/splash.png",
+                    "imageWidth": 200,
+                    "resizeMode": "contain",
+                    "backgroundColor": "#faf8ef"
+                }
+            ]
+        ],
+        "experiments": {
+            "typedRoutes": true,
+            "reactCompiler": true
+        }
+    }
+}

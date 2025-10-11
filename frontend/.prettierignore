@@ -1,0 +1,6 @@
+node_modules/
+.expo/
+.env
+dist/
+.gitignore
+expo-env.d.ts
