@@ -1,14 +1,17 @@
-import React from 'react';
-import { render } from '@testing-library/react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useGame } from '@/assets/hooks/useGame';
-import Game from '@/app/Game';
-import { useStores } from '@/assets/stores';
+import React from 'react'
+import { render } from '@testing-library/react-native'
+import { useNavigation } from '@react-navigation/native'
+import { useGame } from '@/assets/hooks/useGame'
+import Game from '@/app/Game'
+import { useStores } from '@/assets/hooks/useStores'
 
-jest.mock('@/assets/hooks/useGame');
-jest.mock('@/assets/stores/index');
-jest.mock('@react-navigation/native');
-jest.mock('@/assets/components/Board');
+jest.mock('@/assets/hooks/useGame')
+jest.mock('@/assets/stores/index')
+jest.mock('@react-navigation/native')
+jest.mock('@/assets/components/Board')
+jest.mock('@/assets/hooks/useStores', () => ({
+    useStores: jest.fn(),
+}))
 jest.mock('@/assets/hooks/useGameGesture', () => ({
     useGameGesture: () => ({
         panResponder: {
@@ -19,29 +22,29 @@ jest.mock('@/assets/hooks/useGameGesture', () => ({
                 onPanResponderMove: jest.fn(),
                 onPanResponderRelease: jest.fn(),
                 onPanResponderTerminate: jest.fn(),
-            }
-        }
-    })
-}));
+            },
+        },
+    }),
+}))
 
-const mockUseGame = useGame as jest.MockedFunction<typeof useGame>;
-const mockUseStores = useStores as jest.MockedFunction<typeof useStores>;
-const mockUseNavigation = useNavigation as jest.MockedFunction<typeof useNavigation>;
+const mockUseGame = useGame as jest.MockedFunction<typeof useGame>
+const mockUseStores = useStores as jest.MockedFunction<typeof useStores>
+const mockUseNavigation = useNavigation as jest.MockedFunction<typeof useNavigation>
 
 describe('Game Screen Integration Test', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
+        jest.clearAllMocks()
 
         mockUseGame.mockReturnValue({
             board: [
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0],
             ],
             initializeBoard: jest.fn(),
             moveTiles: jest.fn(),
-        });
+        })
 
         const mockGameStore = {
             isLoading: false,
@@ -53,32 +56,32 @@ describe('Game Screen Integration Test', () => {
             loadBestScore: jest.fn(),
             initializeStore: jest.fn(),
             updateBestScore: jest.fn(),
-            debugStorage: jest.fn()
-        };
+            debugStorage: jest.fn(),
+        }
 
-        mockUseStores.mockReturnValue({ gameStore: mockGameStore as any });
+        mockUseStores.mockReturnValue({ gameStore: mockGameStore as any })
 
         mockUseNavigation.mockReturnValue({
             goBack: jest.fn(),
             navigate: jest.fn(),
-        } as any);
-    });
+        } as any)
+    })
 
     test('should render all main game elements correctly', () => {
         const { getByText } = render(<Game />)
 
-        expect(getByText('Join the numbers and get to the 2048 tile!')).toBeTruthy();
-    });
+        expect(getByText('Join the numbers and get to the 2048 tile!')).toBeTruthy()
+    })
 
     test('should initialize game when screen is focused', () => {
-        const { initializeBoard } = mockUseGame();
-        const { gameStore } = mockUseStores();
+        const { initializeBoard } = mockUseGame()
+        const { gameStore } = mockUseStores()
 
-        render(<Game />);
+        render(<Game />)
 
-        expect(initializeBoard).toHaveBeenCalledTimes(0);
-        expect(gameStore.resetScore).toHaveBeenCalledTimes(0);
-    });
+        expect(initializeBoard).toHaveBeenCalledTimes(0)
+        expect(gameStore.resetScore).toHaveBeenCalledTimes(0)
+    })
 
     test('should show loading state when game is loading', () => {
         const mockGameStore = {
@@ -91,24 +94,24 @@ describe('Game Screen Integration Test', () => {
             loadBestScore: jest.fn(),
             initializeStore: jest.fn(),
             updateBestScore: jest.fn(),
-            debugStorage: jest.fn()
-        };
+            debugStorage: jest.fn(),
+        }
 
         mockUseStores.mockReturnValueOnce({
             gameStore: mockGameStore as any,
-        });
+        })
 
-        const { getByText } = render(<Game />);
+        const { getByText } = render(<Game />)
 
-        expect(getByText('Loading game data...')).toBeTruthy();
-    });
+        expect(getByText('Loading game data...')).toBeTruthy()
+    })
 
     test('should update score when board changes', () => {
-        const { gameStore } = mockUseStores();
+        const { gameStore } = mockUseStores()
         mockUseGame()
 
-        render(<Game />);
+        render(<Game />)
 
-        expect(gameStore.setScore).toHaveBeenCalledWith(expect.any(Number));
-    });
-});
+        expect(gameStore.setScore).toHaveBeenCalledWith(expect.any(Number))
+    })
+})

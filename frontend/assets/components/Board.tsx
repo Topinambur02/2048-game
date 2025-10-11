@@ -10,10 +10,7 @@ const Board = ({ board }: BoardProps) => {
             {board.map((row, rowIndex) => (
                 <View key={rowIndex} style={styles.row}>
                     {row.map((cellValue, cellIndex) => (
-                        <BoardCell 
-                            key={`${rowIndex}-${cellIndex}`} 
-                            text={cellValue.toString()}
-                        />
+                        <BoardCell key={`${rowIndex}-${cellIndex}`} text={cellValue.toString()} />
                     ))}
                 </View>
             ))}

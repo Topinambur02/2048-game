@@ -1,4 +1,4 @@
-import { getColor } from "@/assets/utils/getColor"
+import { getColor } from '@/assets/utils/getColor'
 
 describe('getColor', () => {
     test('get color for 2', () => {

@@ -5,10 +5,7 @@ import { styles } from '../styles/NavigationButtonStyles'
 
 const NavigationButton = ({ text, func }: NavigationButtonProps) => {
     return (
-        <TouchableOpacity
-            style={styles.button}
-            onPress={func}
-        >
+        <TouchableOpacity style={styles.button} onPress={func}>
             <Text style={styles.buttonText}>{text}</Text>
         </TouchableOpacity>
     )

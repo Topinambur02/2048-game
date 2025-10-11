@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { OptionsType } from "../types/OptionsType";
-import { Audio, AVPlaybackSource } from "expo-av";
+import { useEffect, useRef, useState } from 'react'
+import { OptionsType } from '../types/OptionsType'
+import { Audio, AVPlaybackSource } from 'expo-av'
 
 export const useAudio = (soundSource: AVPlaybackSource, options: OptionsType) => {
     const [volume, setVolume] = useState(0.5)
@@ -39,13 +39,13 @@ export const useAudio = (soundSource: AVPlaybackSource, options: OptionsType) =>
                     console.log('Ошибка изменения громкости:', error)
                 }
             }
-        };
+        }
 
         updateVolume()
     }, [volume])
 
     return {
         volume,
-        setVolume
+        setVolume,
     }
 }

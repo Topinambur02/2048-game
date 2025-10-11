@@ -27,19 +27,14 @@ const LoseModal = ({ showLoseModal, setShowLoseModal, initializeBoard, onClose }
     }
 
     return (
-        <Modal
-            animationType='fade'
-            transparent
-            visible={showLoseModal}
-            onRequestClose={handleClose}
-        >
+        <Modal animationType="fade" transparent visible={showLoseModal} onRequestClose={handleClose}>
             <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
                     <Text style={styles.modalTitle}>Game Over!</Text>
                     <Text style={styles.modalText}>No more moves available</Text>
                     <View style={styles.modalButtons}>
-                        <NavigationButton text='RESTART' func={onRestart} />
-                        <NavigationButton text='MENU' func={onMenu} />
+                        <NavigationButton text="RESTART" func={onRestart} />
+                        <NavigationButton text="MENU" func={onMenu} />
                     </View>
                 </View>
             </View>

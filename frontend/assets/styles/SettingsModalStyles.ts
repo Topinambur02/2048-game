@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
     modalOverlay: {
@@ -18,12 +18,12 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 15,
         textAlign: 'center',
-        color: '#776E65'
+        color: '#776E65',
     },
     soundSetting: {
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     volumeText: {
         fontSize: 16,
@@ -32,5 +32,5 @@ export const styles = StyleSheet.create({
     slider: {
         width: '100%',
         height: 40,
-    }
+    },
 })

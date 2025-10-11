@@ -16,8 +16,8 @@ describe('Login Component', () => {
     const mockNavigate = jest.fn()
 
     beforeEach(() => {
-        mockUseAuth.mockReturnValue({login: mockLogin} as any)
-        mockUseNavigation.mockReturnValue({navigate: mockNavigate} as any)
+        mockUseAuth.mockReturnValue({ login: mockLogin } as any)
+        mockUseNavigation.mockReturnValue({ navigate: mockNavigate } as any)
     })
 
     afterEach(() => {
@@ -27,15 +27,15 @@ describe('Login Component', () => {
     test('renders correctly', () => {
         const { getByText } = render(<Login />)
 
-        expect(getByText('Вход')).toBeTruthy()
-        expect(getByText('Войти')).toBeTruthy()
-        expect(getByText(/Если у вас нет аккаунта/)).toBeTruthy()
+        expect(getByText('Login')).toBeTruthy()
+        expect(getByText('Sign in')).toBeTruthy()
+        expect(getByText(/If you do not have an account/)).toBeTruthy()
     })
 
     test('navigates to register screen when link is pressed', () => {
         const { getByText } = render(<Login />)
 
-        fireEvent.press(getByText('ссылке'))
+        fireEvent.press(getByText('link'))
 
         expect(mockNavigate).toHaveBeenCalledWith('Register')
     })

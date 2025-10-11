@@ -9,13 +9,8 @@ const BoardCell = ({ text = '0' }: BoardCellProps) => {
     const color = getColor(number)
 
     return (
-        <View
-            style={[
-                styles.container,
-                { backgroundColor: color }
-            ]}
-        >
-            <Text style={styles.text}>{text === '0' ? '' : text }</Text>
+        <View style={[styles.container, { backgroundColor: color }]}>
+            <Text style={styles.text}>{text === '0' ? '' : text}</Text>
         </View>
     )
 }

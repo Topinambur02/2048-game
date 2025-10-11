@@ -1,5 +1,5 @@
-import { useRef } from "react"
-import { PanResponder } from "react-native"
+import { useRef } from 'react'
+import { PanResponder } from 'react-native'
 
 export const useGameGesture = (moveTiles: (direction: 'left' | 'right' | 'up' | 'down') => void) => {
     const panResponder = useRef(
@@ -18,7 +18,7 @@ export const useGameGesture = (moveTiles: (direction: 'left' | 'right' | 'up' | 
                 } else {
                     moveTiles(dy > 0 ? 'down' : 'up')
                 }
-            }
+            },
         })
     ).current
 

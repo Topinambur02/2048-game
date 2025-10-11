@@ -1,4 +1,4 @@
-import { BOARD_SIZE } from "../constants/constants"
+import { BOARD_SIZE } from '../constants/constants'
 
 export const isGameOver = (board: number[][]) => {
     for (let i = 0; i < BOARD_SIZE; i++) {

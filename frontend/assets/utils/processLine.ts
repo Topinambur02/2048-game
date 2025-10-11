@@ -1,7 +1,7 @@
-import { BOARD_SIZE } from "../constants/constants"
+import { BOARD_SIZE } from '../constants/constants'
 
 export const processLine = (line: number[]) => {
-    const filtered = line.filter(cell => cell !== 0)
+    const filtered = line.filter((cell) => cell !== 0)
     const result: number[] = []
     let skipNext = false
 

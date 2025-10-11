@@ -1,5 +1,5 @@
 export function getColor(number: number) {
-    switch(number) {
+    switch (number) {
         case 2:
             return '#EDE4DA'
         case 4:

@@ -11,7 +11,6 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable, SQLAlchemyUserD
 class User(Base, SQLAlchemyBaseUserTable[int]):
     username: Mapped[str] = mapped_column(unique=True)
     bestScore: Mapped[int]
-    audio_volume: Mapped[int]
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:

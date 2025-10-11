@@ -1,4 +1,4 @@
-import { BlurEvent } from "react-native"
+import { BlurEvent } from 'react-native'
 
 export interface FieldInputProps {
     value: string
@@ -6,8 +6,7 @@ export interface FieldInputProps {
     placeholder: string
     isTouched: boolean | undefined
     error: string | undefined
-    isSmall?: boolean
     onChangeText: (text: string) => void
     onBlur: (e: BlurEvent) => void
-    autoCapitalize: "none" | "sentences" | "words" | "characters"
+    autoCapitalize: 'none' | 'sentences' | 'words' | 'characters'
 }
