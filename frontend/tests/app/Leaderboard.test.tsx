@@ -34,10 +34,10 @@ describe('Leaderboard', () => {
 
         render(<Leaderboard />)
 
-        expect(screen.getByText('🏆 Таблица лидеров')).toBeTruthy()
-        expect(screen.getByText('Место')).toBeTruthy()
-        expect(screen.getByText('Игрок')).toBeTruthy()
-        expect(screen.getByText('Очки')).toBeTruthy()
+        expect(screen.getByText('🏆 Leaderboard')).toBeTruthy()
+        expect(screen.getByText('Place')).toBeTruthy()
+        expect(screen.getByText('Player')).toBeTruthy()
+        expect(screen.getByText('Points')).toBeTruthy()
     })
 
     test('displays the correct user ranks', () => {
@@ -61,7 +61,7 @@ describe('Leaderboard', () => {
 
         render(<Leaderboard />)
 
-        expect(screen.getByText('Пока нет участников')).toBeTruthy()
+        expect(screen.getByText('There are no participants yet')).toBeTruthy()
     })
 
     test('displays no more than one user with the same account', () => {
@@ -80,9 +80,7 @@ describe('Leaderboard', () => {
 
     test('truncates long user names', () => {
         mockUseAuth.mockReturnValue({
-            users: [
-                { id: '1', username: 'Очень длинное имя пользователя', bestScore: 100 },
-            ],
+            users: [{ id: '1', username: 'Очень длинное имя пользователя', bestScore: 100 }],
         } as any)
 
         render(<Leaderboard />)
@@ -98,6 +96,6 @@ describe('Leaderboard', () => {
 
         render(<Leaderboard />)
 
-        expect(screen.getByText('Пока нет участников')).toBeTruthy()
+        expect(screen.getByText('There are no participants yet')).toBeTruthy()
     })
 })

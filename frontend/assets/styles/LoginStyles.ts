@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
     container: {
@@ -10,17 +10,17 @@ export const styles = StyleSheet.create({
     },
     text: {
         fontSize: 30,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     linkToReg: {
         fontSize: 10,
         textAlign: 'center',
         color: 'gray',
-        marginTop: 10
+        marginTop: 10,
     },
     link: {
         color: 'blue',
-        textDecorationLine: 'underline'
+        textDecorationLine: 'underline',
     },
     form: {
         width: '100%',

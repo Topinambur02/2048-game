@@ -12,7 +12,7 @@ import { useAuth } from '@/assets/hooks/useAuth'
 const Login = () => {
     const [formData, setFormData] = useState<LoginFormType>({
         email: '',
-        password: ''
+        password: '',
     })
     const [errors, setErrors] = useState<Partial<LoginFormType>>({})
     const [touched, setTouched] = useState<Partial<LoginFormTouchedType>>({})
@@ -21,36 +21,37 @@ const Login = () => {
     const { login } = useAuth()
 
     const handleChange = (field: keyof LoginFormType, value: string) => {
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
-            [field]: value
+            [field]: value,
         }))
 
         if (errors[field]) {
-            setErrors(prev => ({
+            setErrors((prev) => ({
                 ...prev,
-                [field]: undefined
+                [field]: undefined,
             }))
         }
     }
 
     const handleBlur = (field: keyof LoginFormType) => {
-        setTouched(prev => ({
+        setTouched((prev) => ({
             ...prev,
-            [field]: true
+            [field]: true,
         }))
 
-        validationSchema.validateAt(field, formData)
+        validationSchema
+            .validateAt(field, formData)
             .then(() => {
-                setErrors(prev => ({
+                setErrors((prev) => ({
                     ...prev,
-                    [field]: undefined
+                    [field]: undefined,
                 }))
             })
-            .catch(err => {
-                setErrors(prev => ({
+            .catch((err) => {
+                setErrors((prev) => ({
                     ...prev,
-                    [field]: err.message
+                    [field]: err.message,
                 }))
             })
     }
@@ -58,29 +59,29 @@ const Login = () => {
     const handleSubmit = async () => {
         await validationSchema.validate(formData, { abortEarly: false })
 
-        setIsSubmitting(true);
+        setIsSubmitting(true)
         try {
             await login(formData.email, formData.password)
             navigation.navigate('index')
         } catch (error) {
             setErrors({
-                password: error instanceof Error ? error.message : 'An error occurred'
-            });
+                password: error instanceof Error ? error.message : 'An error occurred',
+            })
         } finally {
-            setIsSubmitting(false);
+            setIsSubmitting(false)
         }
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Вход</Text>
+            <Text style={styles.text}>Login</Text>
 
             <View style={styles.form}>
                 <FieldInput
-                    type='text'
+                    type="text"
                     isTouched={touched.email}
                     error={errors.email}
-                    placeholder='Email'
+                    placeholder="Email"
                     value={formData.email}
                     onChangeText={(value) => handleChange('email', value)}
                     onBlur={() => handleBlur('email')}
@@ -88,37 +89,26 @@ const Login = () => {
                 />
 
                 <FieldInput
-                    type='password'
+                    type="password"
                     isTouched={touched.password}
                     error={errors.password}
-                    placeholder='Password'
+                    placeholder="Password"
                     value={formData.password}
                     onChangeText={(value) => handleChange('password', value)}
                     onBlur={() => handleBlur('password')}
                     autoCapitalize="none"
                 />
 
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={handleSubmit}
-                    disabled={isSubmitting}
-                >
-                    {isSubmitting
-                        ?
-                        <ActivityIndicator />
-                        :
-                        <Text style={styles.buttonText}>Войти</Text>
-                    }
+                <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={isSubmitting}>
+                    {isSubmitting ? <ActivityIndicator /> : <Text style={styles.buttonText}>Sign in</Text>}
                 </TouchableOpacity>
             </View>
 
             <Text style={styles.linkToReg}>
-                Если у вас нет аккаунта, то Вы можете зарегистрировать его по
-                <Text
-                    style={styles.link}
-                    onPress={() => navigation.navigate('Register')}
-                >
-                    {' '}ссылке
+                If you do not have an account, you can register it by
+                <Text style={styles.link} onPress={() => navigation.navigate('Register')}>
+                    {' '}
+                    link
                 </Text>
             </Text>
         </View>

@@ -14,7 +14,7 @@ const Register = () => {
         email: '',
         username: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
     })
     const [errors, setErrors] = useState<Partial<RegisterFormType>>({})
     const [touched, setTouched] = useState<Partial<RegisterFormTouchedType>>({})
@@ -23,123 +23,114 @@ const Register = () => {
     const { register } = useAuth()
 
     const handleChange = (field: keyof RegisterFormType, value: string) => {
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
-            [field]: value
+            [field]: value,
         }))
 
         if (errors[field]) {
-            setErrors(prev => ({
+            setErrors((prev) => ({
                 ...prev,
-                [field]: undefined
+                [field]: undefined,
             }))
         }
     }
 
     const handleBlur = (field: keyof RegisterFormType) => {
-        setTouched(prev => ({
+        setTouched((prev) => ({
             ...prev,
-            [field]: true
+            [field]: true,
         }))
 
-        validationSchema.validateAt(field, formData)
+        validationSchema
+            .validateAt(field, formData)
             .then(() => {
-                setErrors(prev => ({
+                setErrors((prev) => ({
                     ...prev,
-                    [field]: undefined
+                    [field]: undefined,
                 }))
             })
-            .catch(err => {
-                setErrors(prev => ({
+            .catch((err) => {
+                setErrors((prev) => ({
                     ...prev,
-                    [field]: err.message
+                    [field]: err.message,
                 }))
             })
     }
 
     const handleSubmit = async () => {
         await validationSchema.validate(formData, { abortEarly: false })
-        setIsSubmitting(true);
+        setIsSubmitting(true)
         try {
             const user = {
                 email: formData.email,
                 username: formData.username,
                 password: formData.password,
                 bestScore: 0,
-                audio_volume: 50
+                audio_volume: 50,
             }
             await register(user)
             navigation.navigate('Login')
         } catch (error) {
             setErrors({
-                email: error instanceof Error ? error.message : 'An error occurred'
-            });
+                email: error instanceof Error ? error.message : 'An error occurred',
+            })
         } finally {
-            setIsSubmitting(false);
+            setIsSubmitting(false)
         }
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Регистрация</Text>
+            <Text style={styles.text}>Registration</Text>
 
             <View style={styles.form}>
                 <FieldInput
-                    type='text'
+                    type="text"
                     isTouched={touched.email}
                     error={errors.email}
-                    placeholder='Email'
+                    placeholder="Email"
                     value={formData.email}
                     onChangeText={(value) => handleChange('email', value)}
                     onBlur={() => handleBlur('email')}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                 />
 
                 <FieldInput
-                    type='text'
+                    type="text"
                     isTouched={touched.username}
                     error={errors.username}
-                    placeholder='Username'
+                    placeholder="Username"
                     value={formData.username}
                     onChangeText={(value) => handleChange('username', value)}
                     onBlur={() => handleBlur('username')}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                 />
 
                 <FieldInput
-                    type='password'
+                    type="password"
                     isTouched={touched.password}
                     error={errors.password}
-                    placeholder='Password'
+                    placeholder="Password"
                     value={formData.password}
                     onChangeText={(value) => handleChange('password', value)}
                     onBlur={() => handleBlur('password')}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                 />
 
                 <FieldInput
-                    type='password'
+                    type="password"
                     isTouched={touched.confirmPassword}
                     error={errors.confirmPassword}
-                    placeholder='Confirm password'
+                    placeholder="Confirm password"
                     value={formData.confirmPassword}
                     onChangeText={(value) => handleChange('confirmPassword', value)}
                     onBlur={() => handleBlur('confirmPassword')}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                 />
 
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={handleSubmit}
-                    disabled={isSubmitting}
-                >
-                    {
-                        isSubmitting
-                            ?
-                            <ActivityIndicator />
-                            :
-                            <Text style={styles.buttonText}>Зарегистрировать</Text>
-                    }
+                <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={isSubmitting}>
+                    {isSubmitting ? <ActivityIndicator /> : <Text style={styles.buttonText}>Sign up</Text>}
                 </TouchableOpacity>
             </View>
         </View>

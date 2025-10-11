@@ -1,6 +1,6 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
 export const VolumeContext = createContext({
     volume: 0.5,
-    setVolume: (volume: number) => { }
+    setVolume: (volume: number) => {},
 })

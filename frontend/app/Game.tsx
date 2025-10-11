@@ -12,10 +12,10 @@ import { isWinner } from '@/assets/utils/isWinner'
 import WinModal from '@/assets/components/WinModal'
 import { isGameOver } from '@/assets/utils/isGameOver'
 import LoseModal from '@/assets/components/LoseModal'
-import { useStores } from '@/assets/stores'
 import { calculateScore } from '@/assets/utils/calculateScore'
 import Settings from '@/assets/components/Settings'
 import SettingsModal from '@/assets/components/SettingsModal'
+import { useStores } from '@/assets/hooks/useStores'
 
 const Game = () => {
     const navigation = useNavigation<IndexScreenNavigationProp>()
@@ -31,8 +31,7 @@ const Game = () => {
     useEffect(() => {
         if (isWin) {
             setShowWinModal(true)
-        }
-        else if (!isWin && isGameOver(board)) {
+        } else if (!isWin && isGameOver(board)) {
             setShowLoseModal(true)
         }
     }, [isWin, board])
@@ -61,19 +60,13 @@ const Game = () => {
             <View style={styles.upperBlock}>
                 <View style={styles.leftSide}>
                     <View style={styles.blockContainer}>
-                        <ScoreBlock text='SCORE' number={gameStore.score} />
-                        <ScoreBlock text='BEST' number={gameStore.bestScore} />
+                        <ScoreBlock text="SCORE" number={gameStore.score} />
+                        <ScoreBlock text="BEST" number={gameStore.bestScore} />
                     </View>
 
                     <View style={styles.buttonsContainer}>
-                        <NavigationButton
-                            text='MENU'
-                            func={() => navigation.goBack()}
-                        />
-                        <NavigationButton
-                            text='LEADERBOARD'
-                            func={() => navigation.navigate('Leaderboard')}
-                        />
+                        <NavigationButton text="MENU" func={() => navigation.goBack()} />
+                        <NavigationButton text="LEADERBOARD" func={() => navigation.navigate('Leaderboard')} />
                     </View>
                 </View>
 
@@ -88,10 +81,7 @@ const Game = () => {
                 <Board board={board} />
             </View>
 
-            <SettingsModal
-                showSettingsModal={showSettingsModal}
-                setShowSettingsModal={setShowSettingsModal}
-            />
+            <SettingsModal showSettingsModal={showSettingsModal} setShowSettingsModal={setShowSettingsModal} />
 
             <WinModal
                 showWinModal={showWinModal}

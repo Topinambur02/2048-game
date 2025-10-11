@@ -16,17 +16,10 @@ const SettingsModal = ({ showSettingsModal, setShowSettingsModal }: SettingsModa
             transparent={true}
             onRequestClose={() => setShowSettingsModal(false)}
         >
-            <TouchableOpacity
-                style={styles.modalOverlay}
-                activeOpacity={1}
-                onPress={() => setShowSettingsModal(false)}
-            >
+            <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setShowSettingsModal(false)}>
                 <View style={styles.modalContent}>
-                    <TouchableOpacity
-                        activeOpacity={1}
-                        onPress={(e) => e.stopPropagation()}
-                    >
-                        <Text style={styles.modalTitle}>Настройки</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={(e) => e.stopPropagation()}>
+                        <Text style={styles.modalTitle}>Settings</Text>
 
                         <View style={styles.soundSetting}>
                             <VolumeSvg />

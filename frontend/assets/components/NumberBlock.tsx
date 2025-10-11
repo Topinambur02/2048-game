@@ -5,16 +5,8 @@ import { NumberBlockStyles } from '../styles/NumberBlockStyles'
 
 const NumberBlock = ({ number, color, isDarkText }: NumberBlockProps) => {
     return (
-        <View style={[
-            NumberBlockStyles.container,
-            { backgroundColor: color }
-        ]}>
-            <Text style={[
-                NumberBlockStyles.text,
-                { color: isDarkText ? '#786F66' : 'white' }
-            ]}>
-                {number}
-            </Text>
+        <View style={[NumberBlockStyles.container, { backgroundColor: color }]}>
+            <Text style={[NumberBlockStyles.text, { color: isDarkText ? '#786F66' : 'white' }]}>{number}</Text>
         </View>
     )
 }

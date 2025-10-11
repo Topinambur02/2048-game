@@ -17,24 +17,14 @@ const WinModal = ({ showWinModal, setShowWinModal, initializeBoard, onClose }: W
     }
 
     return (
-        <Modal
-            animationType="fade"
-            transparent={true}
-            visible={showWinModal}
-            onRequestClose={handleClose}
-        >
+        <Modal animationType="fade" transparent={true} visible={showWinModal} onRequestClose={handleClose}>
             <View style={styles.modalOverlay}>
                 <View style={styles.modalContent}>
-                    <Text style={styles.modalTitle}>Поздравляем!</Text>
-                    <Text style={styles.modalText}>
-                        Вы достигли плитки {WIN_NUMBER}!
-                    </Text>
+                    <Text style={styles.modalTitle}>Congratulations!</Text>
+                    <Text style={styles.modalText}>You have reached tile {WIN_NUMBER}!</Text>
 
-                    <TouchableOpacity
-                        style={[styles.modalButton, styles.newGameButton]}
-                        onPress={handleNewGame}
-                    >
-                        <Text style={styles.buttonText}>Новая игра</Text>
+                    <TouchableOpacity style={[styles.modalButton, styles.newGameButton]} onPress={handleNewGame}>
+                        <Text style={styles.buttonText}>New game</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -1,4 +1,4 @@
-import { BOARD_SIZE } from "../constants/constants"
+import { BOARD_SIZE } from '../constants/constants'
 
 export const getEmptyCells = (board: number[][]): [number, number][] => {
     const emptyCells: [number, number][] = []
@@ -10,6 +10,6 @@ export const getEmptyCells = (board: number[][]): [number, number][] => {
             }
         }
     }
-    
+
     return emptyCells
 }
