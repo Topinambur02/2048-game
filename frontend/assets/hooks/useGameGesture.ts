@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { PanResponder } from 'react-native'
+import { PanResponder, Platform, Vibration } from 'react-native'
 
 export const useGameGesture = (moveTiles: (direction: 'left' | 'right' | 'up' | 'down') => void) => {
     const panResponder = useRef(
@@ -12,6 +12,8 @@ export const useGameGesture = (moveTiles: (direction: 'left' | 'right' | 'up' | 
                 const absDy = Math.abs(dy)
 
                 if (Math.max(absDx, absDy) < 20) return
+
+                if (Platform.OS == "ios") Vibration.vibrate(10) 
 
                 if (absDx > absDy) {
                     moveTiles(dx > 0 ? 'right' : 'left')
