@@ -81,6 +81,10 @@ const Game = () => {
                 <Board board={board} />
             </View>
 
+            <View style={styles.helpInformationButton}>
+                <NavigationButton width={120} text='HELP INFORMATION' func={() => navigation.navigate('HelpInformation')} />
+            </View>
+
             <SettingsModal showSettingsModal={showSettingsModal} setShowSettingsModal={setShowSettingsModal} />
 
             <WinModal

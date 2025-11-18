@@ -4,4 +4,5 @@ export type RootStackParamList = {
     Leaderboard: undefined
     Login: undefined
     Register: undefined
+    HelpInformation: undefined
 }
