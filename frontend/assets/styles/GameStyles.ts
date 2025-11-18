@@ -33,4 +33,8 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         color: '#776E65',
     },
+    helpInformationButton: {
+        marginTop: 10,
+        marginLeft: 20
+    }
 })
