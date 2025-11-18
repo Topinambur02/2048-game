@@ -8,6 +8,7 @@ import { AuthProvider } from '@/assets/provider/AuthProvider'
 import { styles } from '@/assets/styles/RootLayoutStyles'
 import { StoreContext } from '@/assets/contexts/StoreContext'
 import { stores } from '@/assets/stores'
+import Footer from '@/assets/components/Footer'
 
 export default function RootLayout() {
     const musicPath = require('./../assets/music/Heart-Of-The-Ocean.mp3')
@@ -22,6 +23,7 @@ export default function RootLayout() {
                     <SafeAreaView style={styles.container}>
                         <StatusBar style="dark" backgroundColor="#faf8ef" />
                         <Stack screenOptions={screenOptions} />
+                        <Footer />
                     </SafeAreaView>
                 </AuthProvider>
             </StoreContext.Provider>
