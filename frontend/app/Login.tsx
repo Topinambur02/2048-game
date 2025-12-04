@@ -111,6 +111,14 @@ const Login = () => {
                     link
                 </Text>
             </Text>
+
+            <Text style={styles.linkToReg}>
+                If you forgot your password, you can reset it
+                <Text style={styles.link} onPress={() => navigation.navigate('ForgetPassword')}>
+                    {' '}
+                    link
+                </Text>
+            </Text>
         </View>
     )
 }

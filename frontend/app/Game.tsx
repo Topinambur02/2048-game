@@ -39,6 +39,7 @@ const Game = () => {
     useFocusEffect(
         useCallback(() => {
             initializeBoard()
+            // gameStore.clearAllStorage()
             gameStore.resetScore()
             setShowWinModal(false)
             setShowLoseModal(false)
