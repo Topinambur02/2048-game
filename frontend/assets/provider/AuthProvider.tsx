@@ -5,6 +5,8 @@ import { UserType } from '../types/UserType'
 import { RegisterDataType } from '../types/RegisterDataType'
 import { AuthContext } from '../contexts/AuthContext'
 import { AuthProviderProps } from '../props/AuthProviderProps'
+import { ForgetPasswordType } from '../types/ForgetPasswordType'
+import { ResetPasswordType } from '../types/ResetPasswordType'
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<UserType | null>(null)
@@ -42,7 +44,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             $host.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
             await checkAuthStatus()
         } catch (error) {
-            throw error
+            console.error(error)
         }
     }
 
@@ -53,7 +55,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
             setUser(user)
         } catch (error) {
-            throw error
+            console.error(error)
         }
     }
 
@@ -62,9 +64,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             const response = await $host.get('/users')
             setUsers(response.data)
         } catch (error) {
-            throw error
+            console.error(error)
         }
     }
 
-    return <AuthContext.Provider value={{ user, users, login, register }}>{children}</AuthContext.Provider>
+    const getToken = async (data: ForgetPasswordType) => {
+        try {
+            await $host.post('/auth/forgot-password', data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const resetPassword = async (data: ResetPasswordType) => {
+        try {
+            await $host.post('/auth/reset-password', data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    return <AuthContext.Provider value={{ user, users, login, register, getToken, resetPassword }}>{children}</AuthContext.Provider>
 }

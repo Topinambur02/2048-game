@@ -10,6 +10,14 @@ class Settings(BaseSettings):
 
     SECRET_KEY: str
 
+    HOST: str
+    PORT: int
+
+    EMAIL_ADDRESS: str
+    EMAIL_PASSWORD: str
+    SMTP_SERVER: str
+    SMTP_PORT: int
+
     @property
     def POSTGRES_URL(self):
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"

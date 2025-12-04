@@ -5,4 +5,6 @@ export type RootStackParamList = {
     Login: undefined
     Register: undefined
     HelpInformation: undefined
+    ForgetPassword: undefined
+    ResetPassword: undefined
 }

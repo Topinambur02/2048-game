@@ -66,6 +66,21 @@ class GameStore {
         }
     }
 
+    public async clearAllStorage() {
+        try {
+            await AsyncStorage.clear();
+            runInAction(() => {
+                this.bestScore = 0;
+                this.score = 0;
+                this.error = null;
+            });
+            console.log('AsyncStorage successfully cleared!');
+        } catch (error) {
+            runInAction(() => (this.error = 'Failed to clear storage'));
+            console.error('Error clearing AsyncStorage:', error);
+        }
+    }
+
     private async updateBestScore(newBestScore: number) {
         try {
             runInAction(() => (this.bestScore = newBestScore))
